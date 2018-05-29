@@ -13,6 +13,8 @@ public class User {
     private String password;
     @Transient
     private String passwordConfirm;
+    private String mail;
+    private String phone;
     @ManyToMany
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
@@ -33,6 +35,14 @@ public class User {
         return passwordConfirm;
     }
 
+    public String getMail() {
+        return mail;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
     public Set<Role> getRoles() {
         return roles;
     }
@@ -51,6 +61,14 @@ public class User {
 
     public void setPasswordConfirm(String passwordConfirm) {
         this.passwordConfirm = passwordConfirm;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public void setRoles(Set<Role> roles) {

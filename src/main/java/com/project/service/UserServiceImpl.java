@@ -1,5 +1,8 @@
 package com.project.service;
 
+import com.project.model.User;
+import com.project.repository.RoleRepository;
+import com.project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,7 +21,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public void save(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setRoles(new HashSet<>(roleRepository.findAll()));
+//        user.setRoles(new HashSet<>(roleRepository.findAll()));
+        userRepository.save(user);
+    }
+
+    @Override
+    public void updateMail(String username, String mail) {
+        User user = userRepository.findByUsername(username);
+        user.setMail(mail);
+        userRepository.save(user);
+    }
+
+    @Override
+    public void updatePhone(String username, String phone) {
+        User user = userRepository.findByUsername(username);
+        user.setPhone(phone);
         userRepository.save(user);
     }
 
