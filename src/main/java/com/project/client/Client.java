@@ -51,10 +51,40 @@ public class Client {
                 URL url = new URL("http://localhost:8080/registration");
                 String input = "{\"username\":\"" + username + "\", \"password\":\"" + password + "\", \"passwordConfirm\":\"" + passwordConfirm + "\", \"mail\":\"" + mail + "\", \"phone\":\"" + phone + "\"}";
                 String result = sendRequestPost(url, input);
-                if (result.equals("successfully login")) {
+                if (result.equals("Successfully registration")) {
                     currentUsername = username;
+                    System.out.println(result);
                 }
-                System.out.println(result);
+                else if (result.contains("Size.userForm.username")) {
+                    System.out.println("Username required at least 3 characters");
+                }
+                else if (result.contains("Duplicate.userForm.username")) {
+                    System.out.println("This username has already taken");
+                }
+                else if (result.contains("Size.userForm.password")) {
+                    System.out.println("Password required at least 8 characters");
+                }
+                else if (result.contains("CapitalLetter.userForm.password")) {
+                    System.out.println("Password required at least one capital letter");
+                }
+                else if (result.contains("Number.userForm.password")) {
+                    System.out.println("Password required at least one number");
+                }
+                else if (result.contains("SpecialCharacter.userForm.password")) {
+                    System.out.println("Password required at least one special character");
+                }
+                else if (result.contains("Diff.userForm.passwordConfirm")) {
+                    System.out.println("Confirm password is different than password");
+                }
+                else if (result.contains("incorrect.userForm.mail")) {
+                    System.out.println("Incorrect mail address");
+                }
+                else if (result.contains("notNumber.userForm.phone")) {
+                    System.out.println("Incorrect phone number");
+                }
+                else {
+                    System.out.println(result);
+                }
             }
             else if (line.equals("2")) {
                 System.out.println("Username:");
@@ -64,6 +94,9 @@ public class Client {
                 URL url = new URL("http://localhost:8080/login");
                 String input = "{\"username\":\"" + username + "\", \"password\":\"" + password + "\"}";
                 String result = sendRequestPost(url, input);
+                if (result.contains("successfully login")) {
+                    currentUsername = username;
+                }
                 System.out.println(result);
             }
             else if (!currentUsername.equals("")) {
@@ -125,7 +158,6 @@ public class Client {
 
             String output;
             StringBuilder result = new StringBuilder();
-            System.out.println("Output from Server .... \n");
             while ((output = br.readLine()) != null) {
                 result.append(output);
             }

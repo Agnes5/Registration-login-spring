@@ -1,13 +1,11 @@
 package com.project.web;
 
 import com.project.model.User;
-import com.project.repository.UserRepository;
 import com.project.service.SecurityService;
 import com.project.service.UserService;
 import com.project.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -40,7 +38,7 @@ public class UserController {
 
         userService.save(userForm);
         securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
-        return "ok";
+        return "Successfully registration";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -67,27 +65,6 @@ public class UserController {
         userService.updatePhone(userForm.getUsername(), userForm.getPhone());
         return "successfully";
     }
-
-//
-//    @RequestMapping(value = "/login", method = RequestMethod.GET)
-//    public String login(Model model, String error, String logout) {
-//        if (error != null) {
-//            model.addAttribute("error", "Your username and password is invalid.");
-////            return "Your username and password is invalid.";
-//            return error;
-//        }
-//        if (logout != null) {
-//            model.addAttribute("message", "You have been logged out successfully.");
-//            return "You have been logged out successfully.";
-//        }
-//
-//        return "log in";
-//    }
-
-//    @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
-//    public String welcome(Model model) {
-//        return "welcome";
-//    }
 
 
 }

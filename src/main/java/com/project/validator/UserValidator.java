@@ -54,7 +54,6 @@ public class UserValidator implements Validator {
         }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "mail", "NotEmpty");
-//        if (!user.getMail().contains("@\\w+\\.")) {
             if (!Pattern.compile("@\\w+\\.").matcher(user.getMail()).find()) {
             errors.rejectValue("mail", "incorrect.userForm.mail");
         }
